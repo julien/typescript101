@@ -4,30 +4,34 @@ var Pubsub = (function () {
         };
     }
     Pubsub.prototype.on = function (channel, handler) {
-        var i;
-        var l;
+        var index;
         var ots = Object.prototype.toString;
+        var l;
 
-        if(!this.channels[channel]) {
-            this.channels[channel] = [];
-        }
-        for(i = 0 , l = this.channels[channel].length; i < l; i += 1) {
-            if(ots.call(this.channels[channel][i]) === ots.call(handler)) {
-                return;
+        if(typeof handler === 'function') {
+            if(!this.channels[channel]) {
+                this.channels[channel] = [];
+            }
+            index = this.channels[channel].indexOf(handler);
+            if(index === -1) {
+                this.channels[channel].push(handler);
             }
         }
-        this.channels[channel].push(handler);
         return this;
     };
     Pubsub.prototype.off = function (channel, handler) {
-        var i;
+        var index;
         var ots = Object.prototype.toString;
 
         if(this.channels[channel]) {
             if(handler) {
-                for(i = this.channels[channel].length - 1; i >= 0; i -= 1) {
-                    if(ots.call(this.channels[channel][i]) === ots.call(handler)) {
-                        this.channels[channel].splice(i, 1);
+                index = this.channels[channel].indexOf(handler);
+                if(index !== -1) {
+                    this.channels[channel].splice(index, 1);
+                }
+                for(index = this.channels[channel].length - 1; index >= 0; index -= 1) {
+                    if(ots.call(this.channels[channel][index]) === ots.call(handler)) {
+                        this.channels[channel].splice(index, 1);
                     }
                 }
             } else {

@@ -12,6 +12,9 @@
     });
     // try to add the same anonymous function twice
     p.on('foo', function (bar) {
+      console.log('got1', arguments);
+    });
+    p.on('foo', function (bar) {
       console.log('got2', arguments);
     });
 
