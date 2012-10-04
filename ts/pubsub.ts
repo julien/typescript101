@@ -3,7 +3,7 @@ class Pubsub {
   channels: Object = {};
 
   on(channel: string, handler: Function) {
-    var index, ots = Object.prototype.toString, l;
+    var index;
     if (typeof handler === 'function') {
       if (!this.channels[channel] ) {
         this.channels[channel] = [];
