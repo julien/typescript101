@@ -2,7 +2,7 @@ class Pubsub {
 
   channels: Object = {};
 
-  on(channel: string, handler: Function) {
+  on(channel: string, handler: () => any) {
     var index;
     if (typeof handler === 'function') {
       if (!this.channels[channel] ) {
@@ -16,7 +16,7 @@ class Pubsub {
     return this;
   }
 
-  off(channel: string, handler: Function) {
+  off(channel: string, handler: () => any) {
     var index, ots = Object.prototype.toString;
     if (this.channels[channel]) {
       if (handler) {

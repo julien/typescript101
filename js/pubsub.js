@@ -5,9 +5,6 @@ var Pubsub = (function () {
     }
     Pubsub.prototype.on = function (channel, handler) {
         var index;
-        var ots = Object.prototype.toString;
-        var l;
-
         if(typeof handler === 'function') {
             if(!this.channels[channel]) {
                 this.channels[channel] = [];
