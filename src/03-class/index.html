@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script src="main.js"></script>
+  <script>
+  window.addEventListener('load', () => {
+
+    const p = new Pubsub()
+      .on('foo', function (bar) {
+        console.log('got 1', arguments);
+      })
+      .on('foo', function (bar) {
+        console.log('got 1', arguments);
+      })
+      .on('foo', function (bar) {
+        console.log('got 2', arguments);
+      })
+      .trigger('foo', {name: 'baz'})
+      .off('foo', function (bar) {
+        console.log('got 1', arguments);
+      })
+      .trigger('foo', {name: 'bazz'});
+
+  });
+  </script>
+</body>
+</html>

@@ -1,4 +1,6 @@
-module mv {
+
+module lib {
+
   // an EventEmitter class
   export class EventEmitter {
     private listeners:Object = {};
@@ -6,13 +8,13 @@ module mv {
     constructor() {}
 
     on(event:string, handler:Function):EventEmitter {
-      var it:number;
+      let it:number;
       if (!this.listeners[event]) {
         this.listeners[event] = [];
       }
       it = this.listeners[event].length;
       while ((it = it - 1) >= 0) {
-        var h:Function = this.listeners[event][it];
+        const h:Function = this.listeners[event][it];
         if (h === handler) {
           return;
         }
@@ -25,7 +27,7 @@ module mv {
     }
 
     off(event:string, handler:Function):EventEmitter {
-      var it:number, h:Function;
+      let it:number, h:Function;
       if (!this.listeners[event]) {
           this.listeners[event] = [];
       }
@@ -43,7 +45,7 @@ module mv {
     }
 
     trigger(event:string, data:any):EventEmitter {
-      var it:number, h:Function;
+      let it:number, h:Function;
       if (this.listeners[event]) {
         it = this.listeners[event].length - 1;
         while (it >= 0) {
@@ -60,10 +62,8 @@ module mv {
     }
   }
 
-
   export class Model extends EventEmitter {
-
-    constructor(public attributes?:Object = {}) {
+    constructor(public attributes:Object = {}) {
       super();
     }
 
@@ -72,42 +72,15 @@ module mv {
     }
 
     set(key:string, value:any):void {
-      var oldVal:any, newVal:any;
+      let oldVal:any, newVal:any;
 
       newVal = value;
       if (this.attributes[key]) {
         oldVal = this.attributes[key];
       }
       this.attributes[key] = newVal;
-      
+
       this.trigger('change', { key: key, oldVal: oldVal, newVal: newVal });
     }
   }
-
-  export class View extends EventEmitter {
-    
-    private ensureElement():HTMLElement {
-      if (!this.el || !(this.el instanceof HTMLElement)) {
-        this.el = document.createElement('div');
-      }
-      return this.el;
-    }
-
-    constructor(public el?:HTMLElement, public initialize?:Function) {
-      super();
-      
-      this.ensureElement();
-
-      if (initialize) {
-        initialize(this);
-      }
-    }
-
-    remove() {
-      var p:HTMLElement = this.el.parentElement;
-      if (p) {
-        p.removeChild(this.el);
-      }
-    }
-  } 
 }

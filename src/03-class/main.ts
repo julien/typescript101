@@ -3,12 +3,11 @@ class Pubsub {
   channels: Object = {};
 
   on(channel: string, handler: () => any) {
-    var index;
     if (typeof handler === 'function') {
       if (!this.channels[channel] ) {
         this.channels[channel] = [];
       }
-      index = this.channels[channel].indexOf(handler);
+      const index = this.channels[channel].indexOf(handler);
       if (index === -1) {
         this.channels[channel].push(handler);
       }
@@ -17,7 +16,7 @@ class Pubsub {
   }
 
   off(channel: string, handler: () => any) {
-    var index, ots = Object.prototype.toString;
+    let index, ots = Object.prototype.toString;
     if (this.channels[channel]) {
       if (handler) {
         index = this.channels[channel].indexOf(handler);
@@ -38,7 +37,7 @@ class Pubsub {
   }
 
   trigger(channel: string, data: Object) {
-    var i, l;
+    let i, l;
     if (this.channels[channel] !== null) {
       l = this.channels[channel].length;
       for (i = 0; i < l; i +=1) {

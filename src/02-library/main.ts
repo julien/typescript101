@@ -1,8 +1,8 @@
-/// <reference path="mv.ts"/>
+///<reference path="lib.ts"/>
 
-(function () {
+window.addEventListener('load', () => {
 
-  var emitter:mv.EventEmitter = new mv.EventEmitter();
+  const emitter:mv.EventEmitter = new lib.EventEmitter();
   emitter.on('message', function (message:string) {
     console.log('got a message', message);
   });
@@ -17,5 +17,4 @@
   // trigger a message
   emitter.trigger('message', 'hello from typescript');
 
-
-}());
+});

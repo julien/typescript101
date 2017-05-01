@@ -1,8 +1,5 @@
-
 declare var $:any;
 declare var _:any;
-declare var require:any;
-declare var define:any; 
 
 declare module Backbone {
 	export class Model {

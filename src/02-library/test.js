@@ -1,11 +1,10 @@
-describe('mv Test Suite', function () {
+describe('Test Suite', function () {
 
-  
   beforeEach(function () { });
-  
+
   describe('EventEmitter', function () {
-    var emitter, count = 0;
-    emitter = new mv.EventEmitter();
+    const emitter, count = 0;
+    emitter = new lib.EventEmitter();
     emitter.on('message', function (message) {
       count += 1;
     });
@@ -13,7 +12,7 @@ describe('mv Test Suite', function () {
       count += 1;
     });
 
-    it ('should not add the same "handler" twice for the same event.', function () {  
+    it ('should not add the same "handler" twice for the same event.', function () {
       expect(emitter.getListeners('message').length).toEqual(1);
     });
 
@@ -24,9 +23,9 @@ describe('mv Test Suite', function () {
   });
 
   describe('Model', function () {
-    var model, count = 0;
+    const model, count = 0;
 
-    model = new mv.Model();
+    model = new lib.Model();
     model.on('change', function (key, oldVal, newVal) {
       console.log('change', key, oldVal, newVal);
       count += 1;
@@ -47,17 +46,4 @@ describe('mv Test Suite', function () {
       expect(model.get('name')).toEqual('An updated model');
     });
   });
-
-
-  describe('View', function () {
-    var view;
-    view = new mv.View();
-    
-    it ('sould have an el property than is an HTMLElement', function () {
-      // console.log(view.el);
-      expect(view.el).toBeDefined();
-    });
-  });
-  
-
 });
